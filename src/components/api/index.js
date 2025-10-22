@@ -2,7 +2,7 @@ function getUsers(options) {
   const defaultOptions = {
     page: 1,
     results: 10,
-    seed: "pe2022",
+    // seed: "pe2022",
     inc: ["name", "gender", "email", "login"],
   };
 
@@ -11,10 +11,10 @@ function getUsers(options) {
     ...options,
   };
 
-  const { page, results, seed, inc } = realOptions;
-
+  const { page, results, seed, inc, gender } = realOptions;
+  const genderParam = gender && gender !== "all" ? `&gender=${gender}` : "";
   return fetch(
-    `https://randomuser.me/api/?page=${page}&results=${results}&seed=${seed}&inc=${inc}`
+    `https://randomuser.me/api/?page=${page}&results=${results}&inc=${inc}${genderParam}`
   ).then((response) => response.json());
 }
 
