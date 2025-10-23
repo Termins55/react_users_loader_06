@@ -1,5 +1,7 @@
 import { Component } from "react";
 import getUsers from "../api";
+import styles from "./UsersLoader.module.sass";
+import classNames from "classnames";
 
 class UsersLoader extends Component {
   constructor(props) {
@@ -75,47 +77,70 @@ class UsersLoader extends Component {
 
   render() {
     const { users, isFetching, error, resultsPerPage, gender } = this.state;
+
     return (
       <>
         {error && <div>!!!ERROR!!!{JSON.stringify(error)}</div>}
         {isFetching && <div>Loading. Please wait...</div>}
         {!error && !isFetching && (
           <>
-            <label>
-              Кількість користувачів:
-              <select value={resultsPerPage} onChange={this.paginationPage}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={15}>15</option>
-              </select>
-            </label>
-            <label>
-              Оберіть стать:
-              <select value={gender} onChange={this.handleGenderChange}>
-                <option value="all">Всі</option>
-                <option value="male">Чоловіки</option>
-                <option value="female">Жінки</option>
-              </select>
-            </label>
-            <button onClick={this.prevPage}>{"<"}</button>
-            <button onClick={this.nextPage}>{">"}</button>
-            {/* <ul>
-              {users.map((u) => (
-                <li key={u.login.uuid}>{JSON.stringify(u)}</li>
-              ))}
-            </ul> */}
-            <ul>
-              {users.map((u) => (
-                <li key={u.login.uuid}>
-                  <img
-                    src={u.picture?.medium}
-                    alt={`${u.name.first} ${u.name.last}`}
-                  />{" "}
-                  {u.name.title} {u.name.first} {u.name.last} ({u.gender}) -{" "}
-                  {u.email}
-                </li>
-              ))}
-            </ul>
+            <div className={styles.container}>
+              <div className={styles.controls}>
+                <label className={styles.label}>
+                  Кількість користувачів:
+                  <select
+                    className={styles.select}
+                    value={resultsPerPage}
+                    onChange={this.paginationPage}
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                  </select>
+                </label>
+                <label className={styles.label}>
+                  Оберіть стать:
+                  <select
+                    className={styles.select}
+                    value={gender}
+                    onChange={this.handleGenderChange}
+                  >
+                    <option value="all">Всі</option>
+                    <option value="male">Чоловіки</option>
+                    <option value="female">Жінки</option>
+                  </select>
+                </label>
+              </div>
+              <div className={styles.buttons}>
+                <button className={styles.button} onClick={this.prevPage}>
+                  {"<"}
+                </button>
+                <button className={styles.button} onClick={this.nextPage}>
+                  {">"}
+                </button>
+              </div>
+              <ul className={styles.list}>
+                {users.map((u) => (
+                  <li key={u.login.uuid} className={styles.user}>
+                    <img
+                      className={classNames({
+                        [styles.maleBorder]: u.gender === "male",
+                        [styles.femaleBorder]: u.gender === "female",
+                      })}
+                      src={u.picture?.medium}
+                      alt={`${u.name.first} ${u.name.last}`}
+                    />
+                    <div className={styles.userInfo}>
+                      <div className={styles.name}>
+                        {u.name.title} {u.name.first} {u.name.last}
+                      </div>
+                      <div>Стать: {u.gender}</div>
+                      <div className={styles.email}>{u.email}</div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </>
         )}
       </>
