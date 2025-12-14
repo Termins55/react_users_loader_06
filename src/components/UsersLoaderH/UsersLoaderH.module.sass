@@ -1,0 +1,111 @@
+%avatarBorder
+    width: 60px
+    height: 60px
+    border-radius: 50%
+    object-fit: cover
+    border: 5px solid black
+    transition: border-color 0.3s ease
+
+%flexContainer
+    display: flex
+    align-items: center
+    
+.container
+    max-width: 800px
+    margin: 40px auto
+    padding: 20px
+    background: #fff
+    border-radius: 12px
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1)
+    font-family: "Poppins", sans-serif
+
+.controls
+    @extend %flexContainer
+    justify-content: space-between
+    margin-bottom: 20px
+    flex-wrap: wrap
+    gap: 10px
+
+.label
+    @extend %flexContainer
+    gap: 8px
+    font-size: 14px
+    color: #333
+
+.select
+    padding: 6px 10px
+    border-radius: 8px
+    border: 1px solid #ccc
+    background-color: #f8f8f8
+    font-size: 14px
+    cursor: pointer
+    transition: 0.2s ease
+    &:hover
+        border-color: #888
+
+.buttons
+    display: flex
+    justify-content: center
+    gap: 10px
+    margin-bottom: 20px
+
+.button
+    padding: 8px 14px
+    border: none
+    border-radius: 6px
+    background: #4a90e2
+    color: white
+    font-weight: 500
+    cursor: pointer
+    transition: background 0.2s
+    &:hover
+        background: #357ab8
+    &:disabled
+        background: #ccc
+        cursor: not-allowed
+
+.list
+    list-style: none
+    padding: 0
+    margin: 0
+    display: grid
+    gap: 15px
+
+.user
+    @extend %flexContainer
+    gap: 15px
+    background: #f6f9fc
+    padding: 10px 15px
+    border-radius: 10px
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05)
+    transition: transform 0.15s ease
+    &:hover
+        transform: scale(1.02)
+
+.maleBorder
+    @extend %avatarBorder
+    border-color: #3b82f6
+    transition: border-color 0.3s ease
+
+.femaleBorder
+    @extend %avatarBorder
+    border-color: #f43f5e 
+    transition: border-color 0.3s ease
+
+.userInfo
+    display: flex
+    flex-direction: column
+    gap: 4px
+    color: #333
+    font-size: 14px
+
+.name
+    font-weight: 600
+    font-size: 16px
+
+.email
+    color: #555
+    font-size: 13px
+
+
+
